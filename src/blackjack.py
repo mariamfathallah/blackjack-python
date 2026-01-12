@@ -199,7 +199,6 @@ def mise(joueurs) :
     print()   # pour faire des espaces (aerer)
     return mise 
 
-
 def croupier(p, mise) :
     mise_cr = 20
     mise.append(mise_cr)
@@ -226,21 +225,15 @@ def croupier(p, mise) :
     p.remove(carte2)
 
     return scores_croupier
-    
 
-
-def aleatoire(scores_croupier):
-    x = random.randint(0,1)
-    if x == 0:
-        carte3 = piocheCarte(p)
-        cart_Val = 0
-        for cart in carte3:
-            val = valeurCarte(cart)
-            cart_Val += val
-        scores_croupier.append(cart_Val)
+def ecart(scores_croupier):
+    while sum(scores_croupier) < 17:
+        carte = piocheCarte(p)  # pioche 1 carte (retourne une liste)
+        carte_val = 0
+        for cart in carte:
+            carte_val += valeurCarte(cart)
+        scores_croupier.append(carte_val)
     return scores_croupier
-
-
 
 def total(scores) :
     i = 0
@@ -272,8 +265,6 @@ def total(scores) :
     if sum(scores_croupier) == 21 :
         print()
         print('Blackjack!, Le Croupier remporte la partie ! et vous perdez ')
-    
-
 
 
 paquet()
@@ -291,7 +282,7 @@ players = list(joueurs)
 mise = mise(joueurs)
 scores_croupier = croupier(p, mise)
 scores = premierTour(joueurs)
-scores_croupier = aleatoire(scores_croupier)
+scores_croupier = ecart(scores_croupier)
 i = 0
 j = joueurs[i]
 victoire = partieComplete(joueurs,{},scores)
