@@ -1,7 +1,7 @@
-# Blackjack (Python) — First-Year University Project
+# Blackjack (Python) 
 
 A command-line Blackjack-style card game written in Python.  
-Built during my first year at university to practice Python fundamentals, modular programming, and game logic.
+Built during my first year at university to practice Python fundamentals, modular design, and game logic.
 
 ## Highlights
 - Multiplayer (2–7 players depending on version)
@@ -21,9 +21,9 @@ Built during my first year at university to practice Python fundamentals, modula
 - Python 3.x
 
 ### Run
-If your main file is named `blackjack.py`:
+If your main file is located in `src`:
 ```bash
-python blackjack.py
+python src/blackjack.py
 ```
 
 ---
@@ -51,8 +51,8 @@ This repository contains multiple iterations of the same project, developed incr
   - Further experimentation with dealer logic
 
 > **Recommended usage:**  
-> Run the version on the `main` branch (the most stable one).  
-> Other versions are included as tags or in a `/versions` folder to illustrate progression.
+> The `main` branch contains the stable version (v2), while experimental versions are available via tags and the `versions` branch.
+
 
 ---
 
