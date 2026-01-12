@@ -195,13 +195,85 @@ def mise(joueurs) :
         mise.append(mise_1)    
         i+=1
     print("Chaque joueur recoit 2 Cartes !" )
+    print("C'est le tour du Croupier")
     print()   # pour faire des espaces (aerer)
     return mise 
+
+
+def croupier(p, mise) :
+    mise_cr = 20
+    mise.append(mise_cr)
+    scores_croupier =[]
+    i = 0
+
+    carte1 = p[i]
+    if 'As' in carte1 :
+        carte1_val = 11
+    else :
+        carte1_val = valeurCarte(carte1)
+    scores_croupier.append(carte1_val)
+    print("premiere carte du croupier : ",carte1)
+    print("Le score de Croupier  est ", carte1_val)
+    print()
+    p.remove(carte1)
+
+    carte2 = p[i]
+    if 'As' in carte2 :
+        carte2_val = 1
+    else :
+        carte2_val = valeurCarte(carte2)
+    scores_croupier.append(carte2_val)
+    p.remove(carte2)
+
+    return scores_croupier
+    
+
+
+def aleatoire(scores_croupier):
+    x = random.randint(0,1)
+    if x == 0:
+        carte3 = piocheCarte(p)
+        cart_Val = 0
+        for cart in carte3:
+            val = valeurCarte(cart)
+            cart_Val += val
+        scores_croupier.append(cart_Val)
+    return scores_croupier
+
+
 
 def total(scores) :
     i = 0
     max_joueur,max_joueur_score = gagnant(scores)
-    print("le gagnant est" , max_joueur , "et son score est" , max_joueur_score , "voici votre argent" ,sum(mise),"kopecs")
+    
+    if scores[max_joueur] == sum(scores_croupier) and scores[max_joueur] != 21:
+        print()
+        print('Personne gagne !!!! ')
+    elif sum(scores_croupier) < 21 and scores[max_joueur] < 21 and scores[max_joueur] < sum(scores_croupier):
+        print()
+        print("Croupier de score  ",sum(scores_croupier), " est superieur a vous")
+        print("Croupier Gagne!!")
+    elif sum(scores_croupier) < 21 and scores[max_joueur] < 21 and scores[max_joueur] > sum(scores_croupier):
+            print()
+            print("Vous etes superieur avec",scores[max_joueur] - sum(scores_croupier)," à ", sum(scores_croupier))
+            print("Vous gagnez,", sum(mise), "kopecs")
+            
+    elif sum(scores_croupier) > 21:
+            print('Croupier PERD , Vous gagnez!')
+    elif scores[max_joueur] > 21 :
+            print('Vous depassez 21 , vous perdez !')
+            print("Croupier remporte la partie")
+    
+    if scores[max_joueur]== 21 :
+        print()
+        print('Blackjack!',max_joueur  , 'a remporter la partie, voici votre argent : ' , sum(mise), "kopecs" )
+        
+    
+    if sum(scores_croupier) == 21 :
+        print()
+        print('Blackjack!, Le Croupier remporte la partie ! et vous perdez ')
+    
+
 
 
 paquet()
@@ -217,22 +289,10 @@ p = initPioche(n)
 joueurs = initJoueurs(n)
 players = list(joueurs)
 mise = mise(joueurs)
+scores_croupier = croupier(p, mise)
 scores = premierTour(joueurs)
+scores_croupier = aleatoire(scores_croupier)
 i = 0
 j = joueurs[i]
 victoire = partieComplete(joueurs,{},scores)
 total(scores)
-play = input("Veux-tu rejouer? Oui/Non ")
-if play.upper() == "NON" :
-    print("Merci de jouer!")
-while Continue(play) :
-    joueurs = list(players)
-    mise = mise(joueurs)
-    scores = premierTour(joueurs)
-    victoire = partieComplete(joueurs,{},scores)
-    total(scores)
-    play = input("Veux-tu rejouer? Oui/Non ")
-    if Continue(play) == False:
-        print("Merci de jouer!")
-
-    
