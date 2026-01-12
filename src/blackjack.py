@@ -183,56 +183,27 @@ def partieComplete(joueurs,victoire,scores):
 
 
 
-def mise(joueurs) :  
-    """on demande au joueur de choisir combien ils veulent miser selon le nombre de kopecs disponible """
-    i = 0
-    mise = []
-    while i < len(joueurs) :
-        print(joueurs[i] , ", Votre mise? ")
-        mise_1 = int(input())
-        while mise_1 > 100 :
-            mise_1 = int(input("Solde insuffisante , vous n'avez que 100 kopecs. Veuillez ressayer : "))
-        mise.append(mise_1)    
-        i+=1
-    print("Chaque joueur recoit 2 Cartes !" )
-    print()   # pour faire des espaces (aerer)
-    return mise 
-
-def total(scores) :
-    i = 0
-    max_joueur,max_joueur_score = gagnant(scores)
-    print("le gagnant est" , max_joueur , "et son score est" , max_joueur_score , "voici votre argent" ,sum(mise),"kopecs")
-
-
 paquet()
 print("Bienvenue à BlackJack")
 n = int(input("Entrez le nombre du joueur : "))
-while n < 2 :
-    n=int(input("nombre insuffisant de joueur. Veuillez entrer un autre nombre. "))
-
-while n > 7 :
-     n=int(input("nombre de joueur dépasse la limite. Veuillez entrer un autre nombre. "))
-    
 p = initPioche(n)
 joueurs = initJoueurs(n)
 players = list(joueurs)
-mise = mise(joueurs)
 scores = premierTour(joueurs)
 i = 0
 j = joueurs[i]
 victoire = partieComplete(joueurs,{},scores)
-total(scores)
+print("le gagnant et son score :", gagnant(scores))
 play = input("Veux-tu rejouer? Oui/Non ")
 if play.upper() == "NON" :
     print("Merci de jouer!")
 while Continue(play) :
     joueurs = list(players)
-    mise = mise(joueurs)
     scores = premierTour(joueurs)
     victoire = partieComplete(joueurs,{},scores)
-    total(scores)
+    print("le gagnant et son score :", gagnant(scores))
     play = input("Veux-tu rejouer? Oui/Non ")
-    if Continue(play) == False:
+    if Continue(play) == False :
         print("Merci de jouer!")
 
     
